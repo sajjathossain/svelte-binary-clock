@@ -6,11 +6,6 @@
 	const time = new Time();
 	const timesSections = $derived(time.timesSections);
 	const names = ['H', 'M', 'S'];
-
-	const getRandomInt = () => {
-		// Generate a random integer between 0 and 1
-		return Math.floor(Math.random() * 2).toString();
-	};
 </script>
 
 <svelte:head>
@@ -24,8 +19,8 @@
 		{#each timesSections as times, idx (times.join('-') + idx)}
 			<div class="space-y-10">
 				<div class="grid grid-cols-2 gap-4">
-					<SingleUnit item={getRandomInt()} value={names[idx]} />
-					<SingleUnit item={getRandomInt()} value={names[idx]} />
+					<SingleUnit item="1" value={names[idx]} />
+					<SingleUnit item="0" value={names[idx]} />
 				</div>
 				<div class="flex gap-4">
 					{#each times as time, i (i + time)}
