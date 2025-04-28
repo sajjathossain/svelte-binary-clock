@@ -1,7 +1,7 @@
 import { onDestroy } from "svelte";
 
 export class Time {
-  #binaryValues = $state<string[]>([])
+  #timesSections = $state<string[][]>([])
   #timer: number;
 
   constructor() {
@@ -16,8 +16,8 @@ export class Time {
     })
   }
 
-  get binaryValues() {
-    return this.#binaryValues;
+  get timesSections() {
+    return this.#timesSections;
   }
 
   private splitTime(date: Date) {
@@ -50,11 +50,11 @@ export class Time {
     const secBinary = this.getBinary(splits.seconds);
 
     const result = [
-      ...hrBinary,
-      ...minBinary,
-      ...secBinary,
+      hrBinary,
+      minBinary,
+      secBinary,
     ]
 
-    this.#binaryValues = result;
+    this.#timesSections = result;
   }
 }

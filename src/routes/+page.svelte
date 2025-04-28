@@ -4,7 +4,13 @@
 	import TimeSection from '../components/time-section.svelte';
 
 	const time = new Time();
-	const binaryValues = $derived(time.binaryValues);
+	const timesSections = $derived(time.timesSections);
+	const names = ['H', 'M', 'S'];
+
+	const getRandomInt = () => {
+		// Generate a random integer between 0 and 1
+		return Math.floor(Math.random() * 2).toString();
+	};
 </script>
 
 <svelte:head>
@@ -15,18 +21,16 @@
 	<div
 		class="hidden w-8/12 justify-between text-3xl font-bold md:flex lg:w-5/12 lg:max-w-6/12 lg:min-w-4/12"
 	>
-		{#each [{ name: 'h', value: 0 }, { name: 'm', value: 2 }, { name: 's', value: 4 }] as ai, i (ai.name + ai.value + i)}
-			{@const first = binaryValues[ai.value]}
-			{@const second = binaryValues[ai.value + 1]}
-
+		{#each timesSections as times, idx (times.join('-') + idx)}
 			<div class="space-y-10">
 				<div class="grid grid-cols-2 gap-4">
-					<SingleUnit item="0" value={ai.name} />
-					<SingleUnit item="1" value={ai.name} />
+					<SingleUnit item={getRandomInt()} value={names[idx]} />
+					<SingleUnit item={getRandomInt()} value={names[idx]} />
 				</div>
 				<div class="flex gap-4">
-					<TimeSection value={first} />
-					<TimeSection value={second} />
+					{#each times as time, i (i + time)}
+						<TimeSection value={time} />
+					{/each}
 				</div>
 			</div>
 		{/each}
