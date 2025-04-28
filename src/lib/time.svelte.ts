@@ -5,6 +5,8 @@ export class Time {
   #timer: number;
 
   constructor() {
+    this.refresh()
+
     this.#timer = setInterval(() => {
       this.refresh();
     }, 1000);
