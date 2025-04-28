@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { Time } from '$lib/time.svelte';
+	import SingleUnit from '../components/single-unit.svelte';
+	import TimeSection from '../components/time-section.svelte';
 
 	const time = new Time();
 	const binaryValues = $derived(time.binaryValues);
@@ -8,35 +10,6 @@
 <svelte:head>
 	<title>Binary Clock</title>
 </svelte:head>
-
-{#snippet EachNumber(item: string, value: number | string)}
-	<div
-		class:text-blue-500={item === '0'}
-		class:text-white={item === '1'}
-		class:bg-blue-700={item === '1'}
-		class:bg-gray-700={item === '0'}
-		class="grid aspect-square w-fit place-items-center rounded-full p-2"
-	>
-		{value}
-	</div>
-{/snippet}
-
-{#snippet TimeSection(value: string)}
-	{#if value}
-		{@const items = value.split('')}
-		<div class="flex flex-col gap-6">
-			<div class="grid gap-4">
-				{#each items as item, _idx (item + _idx)}
-					{@const value = Math.pow(2, Math.abs(_idx - 3))}
-					{@render EachNumber(item, value)}
-				{/each}
-			</div>
-			<div class="grid aspect-square w-full place-items-center rounded-full p-2">
-				{parseInt(value, 2)}
-			</div>
-		</div>
-	{/if}
-{/snippet}
 
 <div class="flex h-full w-full flex-col items-center justify-center gap-12">
 	<div
@@ -48,12 +21,12 @@
 
 			<div class="space-y-10">
 				<div class="grid grid-cols-2 gap-4">
-					{@render EachNumber('0', ai.name)}
-					{@render EachNumber('1', ai.name)}
+					<SingleUnit item="0" value={ai.name} />
+					<SingleUnit item="1" value={ai.name} />
 				</div>
 				<div class="flex gap-4">
-					{@render TimeSection(first)}
-					{@render TimeSection(second)}
+					<TimeSection value={first} />
+					<TimeSection value={second} />
 				</div>
 			</div>
 		{/each}
